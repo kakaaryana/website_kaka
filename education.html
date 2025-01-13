@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Slideshow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh; /* Menggantikan height dengan min-height */
+            background-color: burlywood;
+            overflow-y: auto; /* Memastikan halaman bisa di-scroll */
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 80%;
+            height: 65vh;
+            margin-top: 20px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .slides {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slides img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dots {
+            text-align: center;
+            position: absolute;
+            bottom: 15px;
+            width: 100%;
+        }
+
+        .dots span {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            margin: 0 5px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dots span.active {
+            background-color: white;
+        }
+
+        .content-container {
+            display: flex;
+            flex-wrap: wrap; /* Tambahkan agar elemen tidak melampaui layar */
+            width: 80%;
+            margin-top: 20px;
+            gap: 20px;
+        }
+
+        .menu {
+            width: 30%;
+        }
+
+        .menu table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #cba26b;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+        }
+
+        .menu td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            background-color: rgb(253, 249, 245);
+            border-radius: 5px;
+            margin-bottom: 5px;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+
+        .menu a:hover {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .extra-column {
+            flex: 1;
+            padding: 20px;
+            background-color: lemonchiffon;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .extra-column img {
+            max-width: 100%; /* Mengatur ukuran gambar agar sesuai kolom */
+            height: auto;
+            border-radius: 10px;
+            margin-top: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .extra-column h2 {
+            margin-bottom: 15px;
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .extra-column p {
+            line-height: 1.6;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="slideshow-container">
+    <!-- Slides -->
+    <div class="slides">
+        <img src="gambar2.png" alt="Slide 1">
+    </div>
+    <div class="slides">
+        <img src="gambar3.png" alt="Slide 2">
+    </div>
+    <div class="slides">
+        <img src="gambar4.png" alt="Slide 3">
+    </div>
+
+    <!-- Dots -->
+    <div class="dots">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+</div>
+
+<!-- Content Section -->
+<div class="content-container">
+    <!-- Navigation Menu -->
+    <div class="menu">
+        <table>
+            <tr>
+                <td><a href="./home.html">Home</a></td>
+            </tr>
+            <tr>
+                <td><a href="./education.html">Education</a></td>
+            </tr>
+            <tr>
+                <td><a href="./about.html">About</a></td>
+            </tr>
+            <tr>
+                <td><a href="./family.html">Family</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Extra Column -->
+    <div class="extra-column">
+        <h2></h2>
+        <p></p>
+        <p></p>
+        <img src="gambar5.png" alt="Education Image">
+    </div>
+</div>
+
+<script>
+    let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        const slides = document.querySelectorAll('.slides');
+        const dots = document.querySelectorAll('.dot');
+
+        slides.forEach(slide => {
+            slide.style.display = 'none';
+        });
+
+        slideIndex++;
+        if (slideIndex > slides.length) slideIndex = 1;
+
+        slides[slideIndex - 1].style.display = 'block';
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[slideIndex - 1].classList.add('active');
+
+        setTimeout(showSlides, 3000); // Change image every 3 seconds
+    }
+
+    function currentSlide(n) {
+        slideIndex = n - 1;
+        showSlides();
+    }
+</script>
+
+</body>
+</html>
